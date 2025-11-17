@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "language": "es-ES",
+  "alternative_languages": [
+    "en-US",
+    "es-MX",
+    "fr-FR",
+    "de-DE",
+    "it-IT",
+    "pt-BR"
+  ],
+  "recognition": {
+    "engine": "windows",
+    "confidence_threshold": 0.7,
+    "energy_threshold": 4000,
+    "dynamic_energy": true,
+    "pause_threshold": 0.8,
+    "phrase_time_limit": null,
+    "non_speaking_duration": 0.5
+  },
+  "hotkeys": {
+    "toggle_dictation": "ctrl+shift+space",
+    "stop_dictation": "ctrl+shift+s",
+    "open_settings": "ctrl+shift+o"
+  },
+  "output": {
+    "auto_insert": true,
+    "use_clipboard": false,
+    "auto_copy": true,
+    "paste_delay": 0.1
+  },
+  "ui": {
+    "show_main_window": true,
+    "minimize_to_tray": true,
+    "start_minimized": false,
+    "always_on_top": false,
+    "show_notifications": true,
+    "theme": "light"
+  },
+  "audio": {
+    "feedback_enabled": true,
+    "beep_on_start": true,
+    "beep_on_stop": true,
+    "voice_feedback": false
+  },
+  "advanced": {
+    "log_level": "INFO",
+    "auto_punctuation": true,
+    "auto_capitalization": true,
+    "enable_custom_commands": true,
+    "command_prefix": null,
+    "save_transcriptions": false
+  }
+}

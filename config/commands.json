@@ -1,0 +1,155 @@
+{
+  "punctuation_commands": {
+    "punto": ".",
+    "coma": ",",
+    "punto y coma": ";",
+    "dos puntos": ":",
+    "signo de interrogación": "?",
+    "interrogación": "?",
+    "signo de exclamación": "!",
+    "exclamación": "!",
+    "guión": "-",
+    "guión bajo": "_",
+    "comillas": "\"",
+    "abrir paréntesis": "(",
+    "cerrar paréntesis": ")",
+    "abrir corchete": "[",
+    "cerrar corchete": "]",
+    "abrir llave": "{",
+    "cerrar llave": "}",
+    "arroba": "@",
+    "almohadilla": "#",
+    "dólar": "$",
+    "porcentaje": "%",
+    "ampersand": "&",
+    "asterisco": "*",
+    "más": "+",
+    "igual": "=",
+    "barra": "/",
+    "barra invertida": "\\",
+    "mayor que": ">",
+    "menor que": "<",
+    "period": ".",
+    "comma": ",",
+    "semicolon": ";",
+    "colon": ":",
+    "question mark": "?",
+    "exclamation mark": "!",
+    "dash": "-",
+    "underscore": "_",
+    "quote": "\"",
+    "open parenthesis": "(",
+    "close parenthesis": ")",
+    "open bracket": "[",
+    "close bracket": "]",
+    "open brace": "{",
+    "close brace": "}",
+    "at sign": "@",
+    "hash": "#",
+    "dollar": "$",
+    "percent": "%",
+    "ampersand": "&",
+    "asterisk": "*",
+    "plus": "+",
+    "equals": "=",
+    "slash": "/",
+    "backslash": "\\",
+    "greater than": ">",
+    "less than": "<"
+  },
+  "formatting_commands": {
+    "nueva línea": "\n",
+    "nuevo párrafo": "\n\n",
+    "tabulación": "\t",
+    "espacio": " ",
+    "new line": "\n",
+    "new paragraph": "\n\n",
+    "tab": "\t",
+    "space": " "
+  },
+  "action_commands": {
+    "borrar última palabra": {
+      "action": "delete_last_word",
+      "params": 1
+    },
+    "borrar últimas": {
+      "action": "delete_last_words",
+      "params": "variable"
+    },
+    "borrar todo": {
+      "action": "clear_buffer"
+    },
+    "detener dictado": {
+      "action": "stop_dictation"
+    },
+    "pausar": {
+      "action": "pause_dictation"
+    },
+    "continuar": {
+      "action": "resume_dictation"
+    },
+    "delete last word": {
+      "action": "delete_last_word",
+      "params": 1
+    },
+    "delete all": {
+      "action": "clear_buffer"
+    },
+    "stop dictation": {
+      "action": "stop_dictation"
+    },
+    "pause": {
+      "action": "pause_dictation"
+    },
+    "resume": {
+      "action": "resume_dictation"
+    }
+  },
+  "custom_commands": [
+    {
+      "id": "example_1",
+      "enabled": true,
+      "trigger": "mi correo",
+      "alternatives": ["email", "correo electrónico"],
+      "action": "insert_text",
+      "value": "ejemplo@correo.com",
+      "description": "Inserta tu dirección de correo"
+    },
+    {
+      "id": "example_2",
+      "enabled": true,
+      "trigger": "fecha actual",
+      "alternatives": ["current date", "hoy"],
+      "action": "insert_date",
+      "format": "%d/%m/%Y",
+      "description": "Inserta la fecha actual"
+    },
+    {
+      "id": "example_3",
+      "enabled": true,
+      "trigger": "hora actual",
+      "alternatives": ["current time"],
+      "action": "insert_time",
+      "format": "%H:%M",
+      "description": "Inserta la hora actual"
+    },
+    {
+      "id": "example_4",
+      "enabled": false,
+      "trigger": "abrir google",
+      "alternatives": ["open google"],
+      "action": "open_url",
+      "value": "https://www.google.com",
+      "description": "Abre Google en el navegador"
+    },
+    {
+      "id": "example_5",
+      "enabled": false,
+      "trigger": "presionar enter",
+      "alternatives": ["press enter"],
+      "action": "press_key",
+      "value": "enter",
+      "description": "Simula presionar Enter"
+    }
+  ]
+}

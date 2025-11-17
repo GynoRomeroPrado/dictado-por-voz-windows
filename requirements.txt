@@ -1,0 +1,23 @@
+# Core speech recognition
+SpeechRecognition==3.10.1
+pyaudio==0.2.14
+pyttsx3==2.90
+
+# GUI
+PyQt5==5.15.10
+PyQt5-Qt5==5.15.2
+PyQt5-sip==12.13.0
+
+# System integration
+keyboard==0.13.5
+pyperclip==1.8.2
+pywin32==306
+
+# Audio processing (optional, for better recognition)
+# pydub==0.25.1
+
+# Configuration
+python-json-logger==2.0.7
+
+# Additional utilities
+python-dateutil==2.8.2

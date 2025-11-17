@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# PyQt
+*.ui.py
+
+# Logs
+*.log
+logs/
+
+# User data
+config/user_settings.json
+transcriptions/
+*.wav
+*.mp3
+
+# OS specific
+Thumbs.db
+desktop.ini
+
+# Distribution / packaging
+*.spec
