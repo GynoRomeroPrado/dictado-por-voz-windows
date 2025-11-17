@@ -4,14 +4,29 @@ Integrates all components: GUI, speech recognition, commands, and hotkeys
 """
 
 import sys
+import os
+
+# Add src directory to path if running directly
+if __name__ == "__main__" and __package__ is None:
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    __package__ = "src"
+
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 
-from .gui.main_window import MainWindow
-from .core.speech_recognizer import SpeechRecognizer
-from .core.command_processor import CommandProcessor
-from .core.hotkey_manager import HotkeyManager
-from .utils.config import config
+# Handle both relative and absolute imports
+try:
+    from .gui.main_window import MainWindow
+    from .core.speech_recognizer import SpeechRecognizer
+    from .core.command_processor import CommandProcessor
+    from .core.hotkey_manager import HotkeyManager
+    from .utils.config import config
+except ImportError:
+    from gui.main_window import MainWindow
+    from core.speech_recognizer import SpeechRecognizer
+    from core.command_processor import CommandProcessor
+    from core.hotkey_manager import HotkeyManager
+    from utils.config import config
 
 
 class VoiceDictationApp(QObject):

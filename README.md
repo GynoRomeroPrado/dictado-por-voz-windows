@@ -30,12 +30,12 @@ cd dictado-por-voz-windows
 pip install -r requirements.txt
 
 # Ejecutar la aplicación
-python src/main.py
+python run.py
 ```
 
 ## Uso Rápido
 
-1. **Iniciar la aplicación**: Ejecuta `python src/main.py`
+1. **Iniciar la aplicación**: Ejecuta `python run.py`
 2. **Activar dictado**: Presiona `Ctrl+Shift+Space` (configurable)
 3. **Hablar**: Di tu texto claramente
 4. **Detener**: Presiona nuevamente `Ctrl+Shift+Space` o di "detener dictado"

@@ -13,7 +13,7 @@ cd dictado-por-voz-windows
 pip install -r requirements.txt
 
 # 3. Ejecutar aplicación
-python src/main.py
+python run.py
 ```
 
 ## 🎤 Primer Uso
