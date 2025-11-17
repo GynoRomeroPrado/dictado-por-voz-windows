@@ -11,7 +11,12 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtCore import Qt, QTimer, pyqtSignal
 from PyQt5.QtGui import QIcon, QFont
 import sys
-from ..utils.config import config
+
+# Handle both relative and absolute imports
+try:
+    from ..utils.config import config
+except ImportError:
+    from utils.config import config
 
 
 class MainWindow(QMainWindow):

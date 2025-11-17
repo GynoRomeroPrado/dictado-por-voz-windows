@@ -7,7 +7,12 @@ import speech_recognition as sr
 import threading
 import queue
 from typing import Callable, Optional
-from ..utils.config import config
+
+# Handle both relative and absolute imports
+try:
+    from ..utils.config import config
+except ImportError:
+    from utils.config import config
 
 
 class SpeechRecognizer:

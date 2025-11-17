@@ -7,8 +7,14 @@ import re
 import webbrowser
 from datetime import datetime
 from typing import Optional, Tuple
-from ..utils.config import config
-from ..utils.clipboard import ClipboardManager
+
+# Handle both relative and absolute imports
+try:
+    from ..utils.config import config
+    from ..utils.clipboard import ClipboardManager
+except ImportError:
+    from utils.config import config
+    from utils.clipboard import ClipboardManager
 
 
 class CommandProcessor:

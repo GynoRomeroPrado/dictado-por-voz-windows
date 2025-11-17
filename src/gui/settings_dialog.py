@@ -10,7 +10,12 @@ from PyQt5.QtWidgets import (
     QFormLayout, QMessageBox
 )
 from PyQt5.QtCore import Qt
-from ..utils.config import config
+
+# Handle both relative and absolute imports
+try:
+    from ..utils.config import config
+except ImportError:
+    from utils.config import config
 
 
 class SettingsDialog(QDialog):
