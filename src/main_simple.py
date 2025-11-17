@@ -20,6 +20,7 @@ import time
 try:
     from .gui.tray_icon import TrayIcon
     from .gui.settings_dialog import SettingsDialog
+    from .gui.quick_settings import QuickSettingsDialog
     from .core.speech_recognizer import SpeechRecognizer
     from .core.command_processor import CommandProcessor
     from .core.hotkey_manager import HotkeyManager
@@ -27,6 +28,7 @@ try:
 except ImportError:
     from gui.tray_icon import TrayIcon
     from gui.settings_dialog import SettingsDialog
+    from gui.quick_settings import QuickSettingsDialog
     from core.speech_recognizer import SpeechRecognizer
     from core.command_processor import CommandProcessor
     from core.hotkey_manager import HotkeyManager
@@ -46,6 +48,7 @@ class SimpleDictationApp(QObject):
         self.command_processor = None
         self.hotkey_manager = None
         self.settings_dialog = None
+        self.quick_settings_dialog = None
 
         # State
         self.is_running = False
@@ -79,6 +82,7 @@ class SimpleDictationApp(QObject):
         """Connect tray icon signals to handlers"""
         self.tray_icon.toggle_dictation_signal.connect(self.toggle_dictation)
         self.tray_icon.open_settings_signal.connect(self.open_settings)
+        self.tray_icon.open_quick_settings_signal.connect(self.open_quick_settings)
         self.tray_icon.quit_signal.connect(self.quit_application)
 
     def register_hotkeys(self):
@@ -159,6 +163,15 @@ class SimpleDictationApp(QObject):
 
         self.settings_dialog.show()
         self.settings_dialog.activateWindow()
+
+    @Slot()
+    def open_quick_settings(self):
+        """Open quick settings dialog"""
+        if not self.quick_settings_dialog:
+            self.quick_settings_dialog = QuickSettingsDialog()
+
+        self.quick_settings_dialog.show()
+        self.quick_settings_dialog.activateWindow()
 
     @Slot()
     def quit_application(self):
