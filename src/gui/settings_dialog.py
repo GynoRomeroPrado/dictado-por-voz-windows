@@ -3,13 +3,13 @@ Settings dialog module
 Configuration interface for the application
 """
 
-from PyQt5.QtWidgets import (
+from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QTabWidget,
     QWidget, QLabel, QLineEdit, QPushButton, QCheckBox,
     QComboBox, QSpinBox, QDoubleSpinBox, QGroupBox,
     QFormLayout, QMessageBox
 )
-from PyQt5.QtCore import Qt
+from PySide6.QtCore import Qt
 
 # Handle both relative and absolute imports
 try:

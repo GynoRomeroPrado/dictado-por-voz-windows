@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "dictado-por-voz-windows"
+version = "1.0.0"
+description = "Aplicación de dictado por voz universal para Windows - Escribe donde está el cursor"
+authors = ["Gyno Romero Prado"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/GynoRomeroPrado/dictado-por-voz-windows"
+repository = "https://github.com/GynoRomeroPrado/dictado-por-voz-windows"
+keywords = ["voice", "dictation", "speech-to-text", "windows", "accessibility"]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.14"
+SpeechRecognition = "^3.10.1"
+PySide6 = "^6.6.0"
+keyboard = "^0.13.5"
+pyperclip = "^1.8.2"
+pyttsx3 = "^2.90"
+pywin32 = {version = "^306", markers = "sys_platform == 'win32'"}
+pyaudio = {version = "^0.2.14", optional = true}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+black = "^23.12.0"
+flake8 = "^6.1.0"
+mypy = "^1.7.0"
+
+[tool.poetry.scripts]
+dictado = "src.main_simple:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ['py310', 'py311', 'py312']
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false

@@ -11,8 +11,8 @@ if __name__ == "__main__" and __package__ is None:
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     __package__ = "src"
 
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
+from PySide6.QtWidgets import QApplication
+from PySide6.QtCore import QObject, Signal as pyqtSignal, Slot as pyqtSlot
 
 # Handle both relative and absolute imports
 try:

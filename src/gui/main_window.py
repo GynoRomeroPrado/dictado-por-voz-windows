@@ -1,15 +1,15 @@
 """
 Main window GUI module
-PyQt5 based interface for the voice dictation app
+PySide6 based interface for the voice dictation app
 """
 
-from PyQt5.QtWidgets import (
+from PySide6.QtWidgets import (
     QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
     QPushButton, QLabel, QTextEdit, QComboBox,
-    QSystemTrayIcon, QMenu, QAction, QMessageBox
+    QSystemTrayIcon, QMenu, QMessageBox
 )
-from PyQt5.QtCore import Qt, QTimer, pyqtSignal
-from PyQt5.QtGui import QIcon, QFont
+from PySide6.QtCore import Qt, QTimer, Signal as pyqtSignal
+from PySide6.QtGui import QIcon, QFont, QAction
 import sys
 
 # Handle both relative and absolute imports
