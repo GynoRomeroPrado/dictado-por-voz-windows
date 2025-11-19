@@ -21,6 +21,7 @@ try:
     from .gui.tray_icon import TrayIcon
     from .gui.settings_dialog import SettingsDialog
     from .gui.quick_settings import QuickSettingsDialog
+    from .gui.recording_overlay import RecordingOverlay, MinimalRecordingIndicator
     from .core.speech_recognizer import SpeechRecognizer
     from .core.command_processor import CommandProcessor
     from .core.hotkey_manager import HotkeyManager
@@ -29,6 +30,7 @@ except ImportError:
     from gui.tray_icon import TrayIcon
     from gui.settings_dialog import SettingsDialog
     from gui.quick_settings import QuickSettingsDialog
+    from gui.recording_overlay import RecordingOverlay, MinimalRecordingIndicator
     from core.speech_recognizer import SpeechRecognizer
     from core.command_processor import CommandProcessor
     from core.hotkey_manager import HotkeyManager
@@ -49,6 +51,7 @@ class SimpleDictationApp(QObject):
         self.hotkey_manager = None
         self.settings_dialog = None
         self.quick_settings_dialog = None
+        self.recording_overlay = None  # Ventana flotante moderna
 
         # State
         self.is_running = False
@@ -59,6 +62,13 @@ class SimpleDictationApp(QObject):
 
         # Initialize tray icon (no main window)
         self.tray_icon = TrayIcon()
+
+        # Initialize recording overlay (ventana flotante moderna)
+        use_minimal = config.get('ui', 'minimal_indicator', fallback='false') == 'true'
+        if use_minimal:
+            self.recording_overlay = MinimalRecordingIndicator()
+        else:
+            self.recording_overlay = RecordingOverlay(theme='dark')
 
         # Initialize command processor
         self.command_processor = CommandProcessor()
@@ -118,6 +128,14 @@ class SimpleDictationApp(QObject):
             print("\n▶ Iniciando dictado...")
             self.recognizer.start_listening()
             self.tray_icon.set_listening_state(True)
+
+            # Mostrar ventana flotante moderna
+            hotkey = config.get('hotkeys', 'toggle_dictation', fallback='Ctrl+Shift+Space')
+            if isinstance(self.recording_overlay, MinimalRecordingIndicator):
+                self.recording_overlay.show_recording()
+            else:
+                self.recording_overlay.show_recording(hotkey)
+
             self.tray_icon.show_notification(
                 "Dictado Iniciado",
                 "Comienza a hablar. El texto se escribirá donde está el cursor."
@@ -141,6 +159,13 @@ class SimpleDictationApp(QObject):
             print("\n⏹ Deteniendo dictado...")
             self.recognizer.stop_listening()
             self.tray_icon.set_listening_state(False)
+
+            # Ocultar ventana flotante
+            if isinstance(self.recording_overlay, MinimalRecordingIndicator):
+                self.recording_overlay.hide_recording()
+            else:
+                self.recording_overlay.hide_overlay()
+
             self.tray_icon.show_notification(
                 "Dictado Detenido",
                 "Dictado pausado"
@@ -189,6 +214,10 @@ class SimpleDictationApp(QObject):
         """
         print(f"📝 Reconocido: {text}")
 
+        # Mostrar estado de procesamiento en overlay
+        if not isinstance(self.recording_overlay, MinimalRecordingIndicator):
+            self.recording_overlay.show_processing()
+
         # Process text through command processor
         processed_text, is_action = self.command_processor.process_text(text)
 
@@ -206,6 +235,11 @@ class SimpleDictationApp(QObject):
 
             except Exception as e:
                 print(f"✗ Error escribiendo texto: {e}")
+
+                # Mostrar error en overlay
+                if not isinstance(self.recording_overlay, MinimalRecordingIndicator):
+                    self.recording_overlay.show_error("Error al escribir")
+
                 # Fallback: try using clipboard
                 try:
                     import pyperclip
@@ -234,6 +268,13 @@ class SimpleDictationApp(QObject):
         # Unregister hotkeys
         if self.hotkey_manager:
             self.hotkey_manager.unregister_all()
+
+        # Hide recording overlay
+        if self.recording_overlay:
+            if isinstance(self.recording_overlay, MinimalRecordingIndicator):
+                self.recording_overlay.hide_recording()
+            else:
+                self.recording_overlay.hide_overlay()
 
         # Hide tray icon
         if self.tray_icon:
