@@ -1,0 +1,21 @@
+The currently activated Python version 3.14.0 is not supported by the project (>=3.10,<3.14).
+Trying to find and use a compatible version. 
+Using python.exe (3.11.9)
+
+============================================================
+  BUILD - DICTADO POR VOZ PARA WINDOWS
+============================================================
+
+
+[2/4] Limpiando archivos anteriores...
+  [OK] Eliminado: __pycache__/
+[OK] Limpieza completada
+
+[1/4] Verificando dependencias...
+  [X] PyInstaller (falta)
+  [OK] PySide6
+  [OK] SpeechRecognition
+
+[ERROR] Faltan dependencias:
+   Ejecuta: pip install -r requirements-pyside6.txt
+   O:       poetry install

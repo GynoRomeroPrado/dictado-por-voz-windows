@@ -61,7 +61,7 @@ a = Analysis(
     runtime_hooks=[],
     excludes=[
         # Exclude unnecessary modules to reduce size
-        'matplotlib',
+        'matplotlib', 'PyQt5',
         'numpy',
         'pandas',
         'scipy',
@@ -90,7 +90,7 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=False,  # No console window (Windows GUI app)
+    console=True,  # No console window (Windows GUI app)
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,

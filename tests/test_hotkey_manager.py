@@ -126,6 +126,7 @@ class TestHotkeyManager(unittest.TestCase):
         from core.hotkey_manager import HotkeyManager
         manager = HotkeyManager()
         manager.toggle_dictation_key = 'ctrl+shift+space'
+        manager.registered_keys.add('ctrl+shift+space')
 
         callback = Mock()
         manager.update_hotkey('toggle_dictation', 'ctrl+alt+t', callback)

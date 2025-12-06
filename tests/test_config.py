@@ -61,16 +61,28 @@ class TestConfigManager(unittest.TestCase):
         """Clean up test fixtures"""
         shutil.rmtree(self.test_dir)
 
+    def _get_test_config_manager(self):
+        """Helper to get a ConfigManager instance using test files"""
+        config = ConfigManager()
+        # Override paths to use test files
+        config.base_dir = Path(self.test_dir)
+        config.config_dir = Path(self.config_dir)
+        config.settings_file = Path(self.settings_file)
+        config.commands_file = Path(self.commands_file)
+        # Reload config from test files
+        config.load_config()
+        return config
+
     def test_init_creates_config_manager(self):
         """Test that ConfigManager initializes correctly"""
-        config = ConfigManager()
+        config = self._get_test_config_manager()
         self.assertIsNotNone(config)
         self.assertIsInstance(config.settings, dict)
         self.assertIsInstance(config.commands, dict)
 
     def test_get_setting_simple(self):
         """Test getting a simple setting"""
-        config = ConfigManager()
+        config = self._get_test_config_manager()
         # Manually set settings for testing
         config.settings = self.test_settings
 
@@ -79,7 +91,7 @@ class TestConfigManager(unittest.TestCase):
 
     def test_get_setting_nested(self):
         """Test getting a nested setting using dot notation"""
-        config = ConfigManager()
+        config = self._get_test_config_manager()
         config.settings = self.test_settings
 
         engine = config.get('recognition.engine')
@@ -87,7 +99,7 @@ class TestConfigManager(unittest.TestCase):
 
     def test_get_setting_with_default(self):
         """Test getting a non-existent setting returns default"""
-        config = ConfigManager()
+        config = self._get_test_config_manager()
         config.settings = self.test_settings
 
         result = config.get('nonexistent.key', 'default_value')
@@ -95,7 +107,7 @@ class TestConfigManager(unittest.TestCase):
 
     def test_set_setting_simple(self):
         """Test setting a simple value"""
-        config = ConfigManager()
+        config = self._get_test_config_manager()
         config.settings = {}
 
         config.set('language', 'en-US')
@@ -103,7 +115,7 @@ class TestConfigManager(unittest.TestCase):
 
     def test_set_setting_nested(self):
         """Test setting a nested value using dot notation"""
-        config = ConfigManager()
+        config = self._get_test_config_manager()
         config.settings = {}
 
         config.set('recognition.engine', 'sphinx')
@@ -112,7 +124,7 @@ class TestConfigManager(unittest.TestCase):
 
     def test_get_command(self):
         """Test getting commands of a specific type"""
-        config = ConfigManager()
+        config = self._get_test_config_manager()
         config.commands = self.test_commands
 
         punct_commands = config.get_command('punctuation_commands')
@@ -121,7 +133,7 @@ class TestConfigManager(unittest.TestCase):
 
     def test_add_custom_command(self):
         """Test adding a custom command"""
-        config = ConfigManager()
+        config = self._get_test_config_manager()
         config.commands = self.test_commands.copy()
 
         new_command = {
@@ -136,7 +148,7 @@ class TestConfigManager(unittest.TestCase):
 
     def test_remove_custom_command(self):
         """Test removing a custom command"""
-        config = ConfigManager()
+        config = self._get_test_config_manager()
         config.commands = {
             "custom_commands": [
                 {"id": "cmd1", "trigger": "test1"},
@@ -150,7 +162,7 @@ class TestConfigManager(unittest.TestCase):
 
     def test_update_custom_command(self):
         """Test updating an existing custom command"""
-        config = ConfigManager()
+        config = self._get_test_config_manager()
         config.commands = {
             "custom_commands": [
                 {"id": "cmd1", "trigger": "old", "value": "old text"}
@@ -165,7 +177,7 @@ class TestConfigManager(unittest.TestCase):
 
     def test_default_settings_structure(self):
         """Test that default settings have correct structure"""
-        config = ConfigManager()
+        config = self._get_test_config_manager()
         defaults = config._get_default_settings()
 
         self.assertIn('version', defaults)
@@ -175,7 +187,7 @@ class TestConfigManager(unittest.TestCase):
 
     def test_default_commands_structure(self):
         """Test that default commands have correct structure"""
-        config = ConfigManager()
+        config = self._get_test_config_manager()
         defaults = config._get_default_commands()
 
         self.assertIn('punctuation_commands', defaults)

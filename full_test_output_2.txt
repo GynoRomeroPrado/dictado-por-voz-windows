@@ -1,0 +1,163 @@
+test_clipboard_manager_without_keyboard_module (test_clipboard.TestClipboardManager.test_clipboard_manager_without_keyboard_module)
+Test that ClipboardManager handles missing keyboard module ... ok
+test_copy_to_clipboard (test_clipboard.TestClipboardManager.test_copy_to_clipboard)
+Test copying text to clipboard ... ok
+test_copy_to_clipboard_error (test_clipboard.TestClipboardManager.test_copy_to_clipboard_error)
+Test handling errors when copying to clipboard ... ok
+test_delete_characters (test_clipboard.TestClipboardManager.test_delete_characters)
+Test deleting characters using backspace ... ok
+test_insert_text (test_clipboard.TestClipboardManager.test_insert_text)
+Test inserting text using clipboard paste ... ok
+test_paste_from_clipboard (test_clipboard.TestClipboardManager.test_paste_from_clipboard)
+Test getting text from clipboard ... ok
+test_paste_from_clipboard_error (test_clipboard.TestClipboardManager.test_paste_from_clipboard_error)
+Test handling errors when pasting from clipboard ... ok
+test_simulate_keypress (test_clipboard.TestClipboardManager.test_simulate_keypress)
+Test simulating keyboard shortcuts ... ok
+test_type_text (test_clipboard.TestClipboardManager.test_type_text)
+Test typing text character by character ... ok
+test_full_insert_workflow (test_clipboard.TestClipboardManagerIntegration.test_full_insert_workflow)
+Test complete workflow of inserting text ... ok
+test_add_to_buffer (test_command_processor.TestCommandProcessor.test_add_to_buffer)
+Test adding text to buffer ... ok
+test_auto_capitalization_after_period (test_command_processor.TestCommandProcessor.test_auto_capitalization_after_period)
+Test capitalization after sentence-ending punctuation ... ok
+test_auto_capitalization_first_word (test_command_processor.TestCommandProcessor.test_auto_capitalization_first_word)
+Test that first word is capitalized ... ok
+test_case_insensitive_commands (test_command_processor.TestCommandProcessor.test_case_insensitive_commands)
+Test that commands are case-insensitive ... ok
+test_clear_buffer (test_command_processor.TestCommandProcessor.test_clear_buffer)
+Test clearing the buffer ... ok
+test_empty_text_processing (test_command_processor.TestCommandProcessor.test_empty_text_processing)
+Test processing empty or None text ... ok
+test_get_buffer_text (test_command_processor.TestCommandProcessor.test_get_buffer_text)
+Test getting complete buffer text ... ok
+test_insert_text_auto_insert (test_command_processor.TestCommandProcessor.test_insert_text_auto_insert)
+Test inserting text with auto_insert enabled ... ok
+test_multiple_commands_sequence (test_command_processor.TestCommandProcessor.test_multiple_commands_sequence)
+Test processing a sequence of commands ... ok
+test_process_action_command (test_command_processor.TestCommandProcessor.test_process_action_command)
+Test processing action commands ... ok
+test_process_custom_command_insert_date (test_command_processor.TestCommandProcessor.test_process_custom_command_insert_date)
+Test custom command that inserts current date ... ok
+test_process_custom_command_insert_text (test_command_processor.TestCommandProcessor.test_process_custom_command_insert_text)
+Test custom command that inserts text ... ok
+test_process_formatting_command (test_command_processor.TestCommandProcessor.test_process_formatting_command)
+Test processing formatting commands ... ok
+test_process_punctuation_command_english (test_command_processor.TestCommandProcessor.test_process_punctuation_command_english)
+Test processing English punctuation commands ... ok
+test_process_punctuation_command_spanish (test_command_processor.TestCommandProcessor.test_process_punctuation_command_spanish)
+Test processing Spanish punctuation commands ... ok
+test_process_regular_text (test_command_processor.TestCommandProcessor.test_process_regular_text)
+Test processing regular text (not a command) ... ok
+test_reload_commands (test_command_processor.TestCommandProcessor.test_reload_commands)
+Test reloading commands from config ... ok
+test_whitespace_handling (test_command_processor.TestCommandProcessor.test_whitespace_handling)
+Test that whitespace is properly handled ... ok
+test_action_clear_buffer (test_command_processor.TestCommandProcessorActions.test_action_clear_buffer)
+Test clear buffer action command ... ok
+test_action_delete_last_word (test_command_processor.TestCommandProcessorActions.test_action_delete_last_word)
+Test delete last word action ... FAIL
+test_add_custom_command (test_config.TestConfigManager.test_add_custom_command)
+Test adding a custom command ... ok
+test_default_commands_structure (test_config.TestConfigManager.test_default_commands_structure)
+Test that default commands have correct structure ... ok
+test_default_settings_structure (test_config.TestConfigManager.test_default_settings_structure)
+Test that default settings have correct structure ... ok
+test_get_command (test_config.TestConfigManager.test_get_command)
+Test getting commands of a specific type ... ok
+test_get_setting_nested (test_config.TestConfigManager.test_get_setting_nested)
+Test getting a nested setting using dot notation ... ok
+test_get_setting_simple (test_config.TestConfigManager.test_get_setting_simple)
+Test getting a simple setting ... ok
+test_get_setting_with_default (test_config.TestConfigManager.test_get_setting_with_default)
+Test getting a non-existent setting returns default ... ok
+test_init_creates_config_manager (test_config.TestConfigManager.test_init_creates_config_manager)
+Test that ConfigManager initializes correctly ... ok
+test_remove_custom_command (test_config.TestConfigManager.test_remove_custom_command)
+Test removing a custom command ... ok
+test_set_setting_nested (test_config.TestConfigManager.test_set_setting_nested)
+Test setting a nested value using dot notation ... ok
+test_set_setting_simple (test_config.TestConfigManager.test_set_setting_simple)
+Test setting a simple value ... ok
+test_update_custom_command (test_config.TestConfigManager.test_update_custom_command)
+Test updating an existing custom command ... ok
+test_load_actual_commands (test_config.TestConfigManagerIntegration.test_load_actual_commands)
+Test loading actual commands file if it exists ... ok
+test_load_actual_config (test_config.TestConfigManagerIntegration.test_load_actual_config)
+Test loading actual configuration files if they exist ... ok
+test_get_registered_hotkeys (test_hotkey_manager.TestHotkeyManager.test_get_registered_hotkeys)
+Test getting all registered hotkeys ... ok
+test_init_loads_hotkeys (test_hotkey_manager.TestHotkeyManager.test_init_loads_hotkeys)
+Test that HotkeyManager initializes with hotkeys from config ... ok
+test_is_hotkey_available (test_hotkey_manager.TestHotkeyManager.test_is_hotkey_available)
+Test checking if hotkey combination is available ... ok
+test_normalize_hotkey (test_hotkey_manager.TestHotkeyManager.test_normalize_hotkey)
+Test normalizing hotkey format ... ok
+test_register_default_hotkeys (test_hotkey_manager.TestHotkeyManager.test_register_default_hotkeys)
+Test registering default application hotkeys ... ok
+test_register_hotkey (test_hotkey_manager.TestHotkeyManager.test_register_hotkey)
+Test registering a hotkey ... ok
+test_register_hotkey_error_handling (test_hotkey_manager.TestHotkeyManager.test_register_hotkey_error_handling)
+Test error handling when registering hotkey fails ... ok
+test_test_hotkey_invalid (test_hotkey_manager.TestHotkeyManager.test_test_hotkey_invalid)
+Test validating an invalid hotkey combination ... ok
+test_test_hotkey_valid (test_hotkey_manager.TestHotkeyManager.test_test_hotkey_valid)
+Test validating a hotkey combination ... ok
+test_unregister_all (test_hotkey_manager.TestHotkeyManager.test_unregister_all)
+Test unregistering all hotkeys ... ok
+test_unregister_hotkey (test_hotkey_manager.TestHotkeyManager.test_unregister_hotkey)
+Test unregistering a hotkey ... ok
+test_update_hotkey (test_hotkey_manager.TestHotkeyManager.test_update_hotkey)
+Test updating a hotkey with new combination ... FAIL
+
+======================================================================
+FAIL: test_action_delete_last_word (test_command_processor.TestCommandProcessorActions.test_action_delete_last_word)
+Test delete last word action
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Python314\Lib\unittest\mock.py", line 1432, in patched
+    return func(*newargs, **newkeywargs)
+  File "G:\dictado-por-voz-windows-1\tests\test_command_processor.py", line 310, in test_action_delete_last_word
+    self.assertTrue(mock_clipboard.delete_characters.called)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_update_hotkey (test_hotkey_manager.TestHotkeyManager.test_update_hotkey)
+Test updating a hotkey with new combination
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Python314\Lib\unittest\mock.py", line 1432, in patched
+    return func(*newargs, **newkeywargs)
+  File "G:\dictado-por-voz-windows-1\tests\test_hotkey_manager.py", line 134, in test_update_hotkey
+    mock_keyboard.remove_hotkey.assert_called()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\unittest\mock.py", line 954, in assert_called
+    raise AssertionError(msg)
+AssertionError: Expected 'remove_hotkey' to have been called.
+
+----------------------------------------------------------------------
+Ran 56 tests in 0.425s
+
+FAILED (failures=2)
+Error copying to clipboard: Test error
+Error pasting from clipboard: Test error
+Buffer cleared
+Buffer cleared
+Registered hotkey: ctrl+h - 
+Registered hotkey: ctrl+shift+space - Toggle voice dictation
+Registered hotkey: ctrl+shift+s - Stop voice dictation
+Registered hotkey: ctrl+shift+o - Open settings
+Registered hotkey: ctrl+h - Test hotkey
+Error registering hotkey ctrl+h: Registration failed
+Invalid key combination invalid+++key: Invalid hotkey
+Registered hotkey: ctrl+h - 
+Registered hotkey: ctrl+j - 
+Registered hotkey: ctrl+k - 
+Unregistered hotkey: ctrl+h
+Unregistered hotkey: ctrl+j
+Unregistered hotkey: ctrl+k
+Registered hotkey: ctrl+h - 
+Unregistered hotkey: ctrl+h
+Registered hotkey: ctrl+alt+t - toggle_dictation

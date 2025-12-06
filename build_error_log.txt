@@ -1,0 +1,16 @@
+The currently activated Python version 3.14.0 is not supported by the project (>=3.10,<3.14).
+Trying to find and use a compatible version. 
+Using python.exe (3.11.9)
+
+Traceback (most recent call last):
+============================================================
+  File "G:\dictado-por-voz-windows-1\build.py", line 214, in <module>
+    main()
+  File "G:\dictado-por-voz-windows-1\build.py", line 179, in main
+    print_header("\U0001f528 BUILD - DICTADO POR VOZ PARA WINDOWS")
+  File "G:\dictado-por-voz-windows-1\build.py", line 26, in print_header
+    print(f"  {text}")
+  File "C:\Users\GYNO\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f528' in position 2: character maps to <undefined>

@@ -1,0 +1,14 @@
+The currently activated Python version 3.14.0 is not supported by the project (>=3.10,<3.14).
+Trying to find and use a compatible version. 
+Using python.exe (3.11.9)
+Installing dependencies from lock file
+
+No dependencies to install or update
+
+Installing the current project: dictado-por-voz-windows (1.0.0)
+
+Error: The current project could not be installed: No file/folder found for package dictado-por-voz-windows
+If you do not want to install the current project use --no-root.
+If you want to use Poetry only for dependency management but not for packaging, you can disable package mode by setting package-mode = false in your pyproject.toml file.
+If you did intend to install the current project, you may need to set `packages` in your pyproject.toml file.
+

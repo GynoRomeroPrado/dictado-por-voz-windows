@@ -1,0 +1,59 @@
+test_add_to_buffer (tests.test_command_processor.TestCommandProcessor.test_add_to_buffer)
+Test adding text to buffer ... ok
+test_auto_capitalization_after_period (tests.test_command_processor.TestCommandProcessor.test_auto_capitalization_after_period)
+Test capitalization after sentence-ending punctuation ... ok
+test_auto_capitalization_first_word (tests.test_command_processor.TestCommandProcessor.test_auto_capitalization_first_word)
+Test that first word is capitalized ... ok
+test_case_insensitive_commands (tests.test_command_processor.TestCommandProcessor.test_case_insensitive_commands)
+Test that commands are case-insensitive ... ok
+test_clear_buffer (tests.test_command_processor.TestCommandProcessor.test_clear_buffer)
+Test clearing the buffer ... ok
+test_empty_text_processing (tests.test_command_processor.TestCommandProcessor.test_empty_text_processing)
+Test processing empty or None text ... ok
+test_get_buffer_text (tests.test_command_processor.TestCommandProcessor.test_get_buffer_text)
+Test getting complete buffer text ... ok
+test_insert_text_auto_insert (tests.test_command_processor.TestCommandProcessor.test_insert_text_auto_insert)
+Test inserting text with auto_insert enabled ... ok
+test_multiple_commands_sequence (tests.test_command_processor.TestCommandProcessor.test_multiple_commands_sequence)
+Test processing a sequence of commands ... ok
+test_process_action_command (tests.test_command_processor.TestCommandProcessor.test_process_action_command)
+Test processing action commands ... ok
+test_process_custom_command_insert_date (tests.test_command_processor.TestCommandProcessor.test_process_custom_command_insert_date)
+Test custom command that inserts current date ... ok
+test_process_custom_command_insert_text (tests.test_command_processor.TestCommandProcessor.test_process_custom_command_insert_text)
+Test custom command that inserts text ... ok
+test_process_formatting_command (tests.test_command_processor.TestCommandProcessor.test_process_formatting_command)
+Test processing formatting commands ... ok
+test_process_punctuation_command_english (tests.test_command_processor.TestCommandProcessor.test_process_punctuation_command_english)
+Test processing English punctuation commands ... ok
+test_process_punctuation_command_spanish (tests.test_command_processor.TestCommandProcessor.test_process_punctuation_command_spanish)
+Test processing Spanish punctuation commands ... ok
+test_process_regular_text (tests.test_command_processor.TestCommandProcessor.test_process_regular_text)
+Test processing regular text (not a command) ... ok
+test_reload_commands (tests.test_command_processor.TestCommandProcessor.test_reload_commands)
+Test reloading commands from config ... ok
+test_whitespace_handling (tests.test_command_processor.TestCommandProcessor.test_whitespace_handling)
+Test that whitespace is properly handled ... ok
+test_action_clear_buffer (tests.test_command_processor.TestCommandProcessorActions.test_action_clear_buffer)
+Test clear buffer action command ... ok
+test_action_delete_last_word (tests.test_command_processor.TestCommandProcessorActions.test_action_delete_last_word)
+Test delete last word action ... FAIL
+
+======================================================================
+FAIL: test_action_delete_last_word (tests.test_command_processor.TestCommandProcessorActions.test_action_delete_last_word)
+Test delete last word action
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Python314\Lib\unittest\mock.py", line 1432, in patched
+    return func(*newargs, **newkeywargs)
+  File "G:\dictado-por-voz-windows-1\tests\test_command_processor.py", line 310, in test_action_delete_last_word
+    self.assertTrue(mock_clipboard.delete_characters.called)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.232s
+
+FAILED (failures=1)
+Buffer cleared
+Buffer cleared

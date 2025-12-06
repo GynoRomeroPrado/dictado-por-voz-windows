@@ -1,0 +1,27 @@
+test_clipboard_manager_without_keyboard_module (tests.test_clipboard.TestClipboardManager.test_clipboard_manager_without_keyboard_module)
+Test that ClipboardManager handles missing keyboard module ... ok
+test_copy_to_clipboard (tests.test_clipboard.TestClipboardManager.test_copy_to_clipboard)
+Test copying text to clipboard ... ok
+test_copy_to_clipboard_error (tests.test_clipboard.TestClipboardManager.test_copy_to_clipboard_error)
+Test handling errors when copying to clipboard ... ok
+test_delete_characters (tests.test_clipboard.TestClipboardManager.test_delete_characters)
+Test deleting characters using backspace ... ok
+test_insert_text (tests.test_clipboard.TestClipboardManager.test_insert_text)
+Test inserting text using clipboard paste ... ok
+test_paste_from_clipboard (tests.test_clipboard.TestClipboardManager.test_paste_from_clipboard)
+Test getting text from clipboard ... ok
+test_paste_from_clipboard_error (tests.test_clipboard.TestClipboardManager.test_paste_from_clipboard_error)
+Test handling errors when pasting from clipboard ... ok
+test_simulate_keypress (tests.test_clipboard.TestClipboardManager.test_simulate_keypress)
+Test simulating keyboard shortcuts ... ok
+test_type_text (tests.test_clipboard.TestClipboardManager.test_type_text)
+Test typing text character by character ... ok
+test_full_insert_workflow (tests.test_clipboard.TestClipboardManagerIntegration.test_full_insert_workflow)
+Test complete workflow of inserting text ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.289s
+
+OK
+Error copying to clipboard: Test error
+Error pasting from clipboard: Test error

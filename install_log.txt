@@ -1,0 +1,85 @@
+Defaulting to user installation because normal site-packages is not writeable
+Collecting faster-whisper
+  Using cached faster_whisper-1.2.1-py3-none-any.whl.metadata (16 kB)
+Collecting ctranslate2<5,>=4.0 (from faster-whisper)
+  Using cached ctranslate2-4.6.2-cp314-cp314-win_amd64.whl.metadata (10 kB)
+Requirement already satisfied: huggingface-hub>=0.21 in c:\users\gyno\appdata\roaming\python\python314\site-packages (from faster-whisper) (0.36.0)
+Requirement already satisfied: tokenizers<1,>=0.13 in c:\users\gyno\appdata\roaming\python\python314\site-packages (from faster-whisper) (0.22.1)
+INFO: pip is looking at multiple versions of faster-whisper to determine which version is compatible with other requirements. This could take a while.
+Collecting faster-whisper
+  Using cached faster_whisper-1.2.0-py3-none-any.whl.metadata (16 kB)
+  Using cached faster_whisper-1.1.1-py3-none-any.whl.metadata (16 kB)
+  Using cached faster_whisper-1.1.0-py3-none-any.whl.metadata (16 kB)
+  Using cached faster_whisper-1.0.3-py3-none-any.whl.metadata (15 kB)
+Collecting av<13,>=11.0 (from faster-whisper)
+  Using cached av-12.3.0.tar.gz (3.8 MB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting faster-whisper
+  Using cached faster_whisper-1.0.2-py3-none-any.whl.metadata (15 kB)
+  Using cached faster_whisper-1.0.1-py3-none-any.whl.metadata (14 kB)
+Collecting av==11.* (from faster-whisper)
+  Using cached av-11.0.0.tar.gz (3.7 MB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting tokenizers<0.16,>=0.13 (from faster-whisper)
+  Using cached tokenizers-0.15.2.tar.gz (320 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Installing backend dependencies: started
+  Installing backend dependencies: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  Preparing metadata (pyproject.toml) did not run successfully.
+  exit code: 1
+  
+  [23 lines of output]
+  Python reports SOABI: cp314-win_amd64
+  Computed rustc target triple: x86_64-pc-windows-msvc
+  Installation directory: C:\Users\GYNO\AppData\Local\puccinialin\puccinialin\Cache
+  Rustup already downloaded
+  Installing rust to C:\Users\GYNO\AppData\Local\puccinialin\puccinialin\Cache\rustup
+  warn: It looks like you have an existing rustup settings file at:
+  warn: C:\Users\GYNO\.rustup\settings.toml
+  warn: Rustup will install the default toolchain as specified in the settings file,
+  warn: instead of the one inferred from the default host triple.
+  info: profile set to 'minimal'
+  info: default host triple is x86_64-pc-windows-msvc
+  warn: Updating existing toolchain, profile choice will be ignored
+  info: syncing channel updates for 'stable-x86_64-pc-windows-msvc'
+  info: default toolchain set to 'stable-x86_64-pc-windows-msvc'
+  Checking if cargo is installed
+  cargo 1.91.1 (ea2d97820 2025-10-10)
+  
+  Cargo, the Rust package manager, is not installed or is not on PATH.
+  This package requires Rust and Cargo to compile extensions. Install it through
+  the system's package manager or via https://rustup.rs/
+  
+  Checking for Rust toolchain....
+  Rust not found, installing into a temporary directory
+  [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+
+[notice] A new release of pip is available: 25.2 -> 25.3
+[notice] To update, run: python.exe -m pip install --upgrade pip
+error: metadata-generation-failed
+
+Encountered error while generating package metadata.
+
+See above for output.
+
+note: This is an issue with the package mentioned above, not pip.
+hint: See above for details.

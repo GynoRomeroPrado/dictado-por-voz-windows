@@ -1,9 +1,69 @@
 {
+  "punctuation_commands": {
+    "punto": ".",
+    "coma": ",",
+    "dos puntos": ":",
+    "punto y coma": ";",
+    "signo de interrogación": "?",
+    "signo de exclamación": "!",
+    "abrir paréntesis": "(",
+    "cerrar paréntesis": ")",
+    "abrir comillas": "\"",
+    "cerrar comillas": "\"",
+    "guión": "-",
+    "guion": "-",
+    "barra": "/",
+    "arroba": "@",
+    "period": ".",
+    "comma": ",",
+    "colon": ":",
+    "semicolon": ";",
+    "question mark": "?",
+    "exclamation mark": "!",
+    "open parenthesis": "(",
+    "close parenthesis": ")",
+    "open quote": "\"",
+    "close quote": "\"",
+    "hyphen": "-",
+    "dash": "-",
+    "slash": "/",
+    "at sign": "@"
+  },
+  "formatting_commands": {
+    "nueva línea": "\n",
+    "nuevo párrafo": "\n\n",
+    "new line": "\n",
+    "new paragraph": "\n\n",
+    "tabulador": "\t",
+    "tab": "\t"
+  },
+  "action_commands": {
+    "borrar todo": {
+      "action": "clear_buffer"
+    },
+    "clear all": {
+      "action": "clear_buffer"
+    },
+    "borrar última palabra": {
+      "action": "delete_last_word"
+    },
+    "delete last word": {
+      "action": "delete_last_word"
+    },
+    "detener dictado": {
+      "action": "stop_dictation"
+    },
+    "stop dictation": {
+      "action": "stop_dictation"
+    }
+  },
   "custom_commands": [
     {
-      "id": "cmd1",
-      "trigger": "new",
-      "value": "new text"
+      "id": "cmd_fecha",
+      "trigger": "insertar fecha",
+      "action": "insert_date",
+      "format": "%d/%m/%Y",
+      "enabled": true
     }
   ]
 }

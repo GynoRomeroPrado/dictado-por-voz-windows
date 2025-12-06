@@ -1,0 +1,53 @@
+test_add_custom_command (tests.test_config.TestConfigManager.test_add_custom_command)
+Test adding a custom command ... ok
+test_default_commands_structure (tests.test_config.TestConfigManager.test_default_commands_structure)
+Test that default commands have correct structure ... ok
+test_default_settings_structure (tests.test_config.TestConfigManager.test_default_settings_structure)
+Test that default settings have correct structure ... ok
+test_get_command (tests.test_config.TestConfigManager.test_get_command)
+Test getting commands of a specific type ... ok
+test_get_setting_nested (tests.test_config.TestConfigManager.test_get_setting_nested)
+Test getting a nested setting using dot notation ... ok
+test_get_setting_simple (tests.test_config.TestConfigManager.test_get_setting_simple)
+Test getting a simple setting ... ok
+test_get_setting_with_default (tests.test_config.TestConfigManager.test_get_setting_with_default)
+Test getting a non-existent setting returns default ... ok
+test_init_creates_config_manager (tests.test_config.TestConfigManager.test_init_creates_config_manager)
+Test that ConfigManager initializes correctly ... ok
+test_remove_custom_command (tests.test_config.TestConfigManager.test_remove_custom_command)
+Test removing a custom command ... ok
+test_set_setting_nested (tests.test_config.TestConfigManager.test_set_setting_nested)
+Test setting a nested value using dot notation ... ok
+test_set_setting_simple (tests.test_config.TestConfigManager.test_set_setting_simple)
+Test setting a simple value ... ok
+test_update_custom_command (tests.test_config.TestConfigManager.test_update_custom_command)
+Test updating an existing custom command ... ok
+test_load_actual_commands (tests.test_config.TestConfigManagerIntegration.test_load_actual_commands)
+Test loading actual commands file if it exists ... FAIL
+test_load_actual_config (tests.test_config.TestConfigManagerIntegration.test_load_actual_config)
+Test loading actual configuration files if they exist ... FAIL
+
+======================================================================
+FAIL: test_load_actual_commands (tests.test_config.TestConfigManagerIntegration.test_load_actual_commands)
+Test loading actual commands file if it exists
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "G:\dictado-por-voz-windows-1\tests\test_config.py", line 215, in test_load_actual_commands
+    self.assertIn('punctuation_commands', data)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'punctuation_commands' not found in {'custom_commands': [{'id': 'cmd1', 'trigger': 'new', 'value': 'new text'}]}
+
+======================================================================
+FAIL: test_load_actual_config (tests.test_config.TestConfigManagerIntegration.test_load_actual_config)
+Test loading actual configuration files if they exist
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "G:\dictado-por-voz-windows-1\tests\test_config.py", line 201, in test_load_actual_config
+    self.assertIn('version', data)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+AssertionError: 'version' not found in {'language': 'en-US'}
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.046s
+
+FAILED (failures=2)

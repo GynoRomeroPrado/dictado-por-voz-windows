@@ -1,3 +1,41 @@
 {
-  "language": "en-US"
+  "version": "1.0.0",
+  "language": "es-MX",
+  "recognition": {
+    "engine": "whisper_local",
+    "confidence_threshold": 0.7,
+    "energy_threshold": 600,
+    "dynamic_energy": true,
+    "pause_threshold": 0.8
+  },
+  "hotkeys": {
+    "toggle_dictation": "ctrl+shift+space",
+    "stop_dictation": "ctrl+shift+s",
+    "open_settings": "ctrl+shift+o"
+  },
+  "output": {
+    "auto_insert": true,
+    "use_clipboard": false,
+    "paste_delay": 0.1,
+    "auto_copy": true
+  },
+  "ui": {
+    "show_main_window": true,
+    "minimize_to_tray": true,
+    "always_on_top": false,
+    "start_minimized": false,
+    "show_notifications": true,
+    "theme": "dark"
+  },
+  "advanced": {
+    "auto_punctuation": true,
+    "auto_capitalization": true,
+    "enable_custom_commands": true,
+    "save_transcriptions": false
+  },
+  "audio": {
+    "feedback_enabled": true,
+    "beep_on_start": true,
+    "beep_on_stop": true
+  }
 }

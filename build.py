@@ -37,7 +37,7 @@ def check_dependencies():
     print_step(1, 4, "Verificando dependencias")
 
     required = {
-        'PyInstaller': 'pyinstaller',
+        'PyInstaller': 'PyInstaller',
         'PySide6': 'PySide6',
         'SpeechRecognition': 'speech_recognition',
     }
@@ -46,18 +46,18 @@ def check_dependencies():
     for name, module in required.items():
         try:
             __import__(module)
-            print(f"  ✓ {name}")
+            print(f"  [OK] {name}")
         except ImportError:
-            print(f"  ✗ {name} (falta)")
+            print(f"  [X] {name} (falta)")
             missing.append(name)
 
     if missing:
-        print("\n❌ Faltan dependencias:")
+        print("\n[ERROR] Faltan dependencias:")
         print("   Ejecuta: pip install -r requirements-pyside6.txt")
         print("   O:       poetry install")
         return False
 
-    print("\n✓ Todas las dependencias están instaladas")
+    print("\n[OK] Todas las dependencias están instaladas")
     return True
 
 
@@ -71,15 +71,15 @@ def clean_build():
     for dir_name in dirs_to_clean:
         if os.path.exists(dir_name):
             shutil.rmtree(dir_name)
-            print(f"  ✓ Eliminado: {dir_name}/")
+            print(f"  [OK] Eliminado: {dir_name}/")
 
     for pattern in files_to_clean:
         for file in Path('.').glob(pattern):
             if file.name != 'build.spec':  # Keep our custom spec
                 file.unlink()
-                print(f"  ✓ Eliminado: {file}")
+                print(f"  [OK] Eliminado: {file}")
 
-    print("✓ Limpieza completada")
+    print("[OK] Limpieza completada")
 
 
 def run_pyinstaller():
@@ -87,8 +87,30 @@ def run_pyinstaller():
     print_step(3, 4, "Compilando con PyInstaller")
 
     try:
-        # Run PyInstaller with the build.spec file
-        cmd = [sys.executable, '-m', 'PyInstaller', 'build.spec', '--clean']
+        # Run PyInstaller with full arguments instead of spec file
+        # This ensures we capture all dependencies and excludes correctly
+        cmd = [
+            sys.executable, '-m', 'PyInstaller',
+            'src/main.py',
+            '--name=DictadoPorVoz',
+            '--onefile',
+            '--clean',
+            '--noconfirm',
+            '--console',  # Keep console for debugging
+            '--exclude-module=PyQt5',
+            '--collect-all=faster_whisper',
+            '--collect-all=sounddevice',
+            '--collect-all=whisper',
+            '--collect-all=ctranslate2',
+            '--hidden-import=src.gui.modern_styles',
+            '--hidden-import=src.gui.quick_settings',
+            '--hidden-import=src.gui.recording_overlay',
+            '--hidden-import=src.gui.splash_screen',
+            # Add paths
+            '--add-data=src/utils;src/utils',
+            '--add-data=assets;assets',
+            '--paths=src',
+        ]
 
         print("  Ejecutando:", ' '.join(cmd))
         print("  (Esto puede tardar varios minutos...)\n")
@@ -96,18 +118,18 @@ def run_pyinstaller():
         result = subprocess.run(
             cmd,
             check=True,
-            capture_output=False,  # Show output in real-time
+            capture_output=False,
             text=True
         )
 
-        print("\n✓ Compilación exitosa")
+        print("\n[OK] Compilación exitosa")
         return True
 
     except subprocess.CalledProcessError as e:
-        print(f"\n❌ Error durante la compilación: {e}")
+        print(f"\n[ERROR] Error durante la compilación: {e}")
         return False
     except FileNotFoundError:
-        print("\n❌ PyInstaller no encontrado")
+        print("\n[ERROR] PyInstaller no encontrado")
         print("   Ejecuta: pip install pyinstaller")
         return False
 
@@ -120,7 +142,7 @@ def create_distribution():
     exe_path = dist_dir / 'DictadoPorVoz.exe'
 
     if not exe_path.exists():
-        print(f"❌ No se encontró el ejecutable: {exe_path}")
+        print(f"[ERROR] No se encontró el ejecutable: {exe_path}")
         return False
 
     # Create config directory in dist if needed
@@ -129,14 +151,14 @@ def create_distribution():
         config_src = Path('config')
         if config_src.exists():
             shutil.copytree(config_src, config_dist)
-            print(f"  ✓ Copiada carpeta de configuración")
+            print(f"  [OK] Copiada carpeta de configuración")
 
     # Copy README
     readme_src = Path('README_SIMPLE.md')
     readme_dist = dist_dir / 'README.txt'
     if readme_src.exists():
         shutil.copy2(readme_src, readme_dist)
-        print(f"  ✓ Copiado README")
+        print(f"  [OK] Copiado README")
 
     # Create version info file
     version_file = dist_dir / 'VERSION.txt'
@@ -144,17 +166,17 @@ def create_distribution():
         f.write("Dictado por Voz para Windows\n")
         f.write("Versión: 1.0.0\n")
         f.write("Desarrollador: Gyno Romero Prado\n")
-    print(f"  ✓ Creado archivo de versión")
+    print(f"  [OK] Creado archivo de versión")
 
-    print(f"\n✓ Distribución creada en: {dist_dir.absolute()}")
-    print(f"✓ Ejecutable: {exe_path.absolute()}")
+    print(f"\n[OK] Distribución creada en: {dist_dir.absolute()}")
+    print(f"[OK] Ejecutable: {exe_path.absolute()}")
 
     return True
 
 
 def main():
     """Main build process"""
-    print_header("🔨 BUILD - DICTADO POR VOZ PARA WINDOWS")
+    print_header("BUILD - DICTADO POR VOZ PARA WINDOWS")
 
     # Check for --clean flag
     if '--clean' in sys.argv:
@@ -177,7 +199,7 @@ def main():
         sys.exit(1)
 
     # Success!
-    print_header("✅ BUILD COMPLETADO EXITOSAMENTE")
+    print_header("BUILD COMPLETADO EXITOSAMENTE")
     print("El ejecutable está listo para usar:")
     print(f"  📁 dist/DictadoPorVoz.exe")
     print("\nPara crear un instalador:")

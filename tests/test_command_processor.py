@@ -302,6 +302,7 @@ class TestCommandProcessorActions(unittest.TestCase):
         """Test delete last word action"""
         mock_clipboard = Mock()
         mock_clipboard_class.return_value = mock_clipboard
+        self.processor.clipboard = mock_clipboard
 
         self.processor.text_buffer = ["Hello World"]
         self.processor._execute_action_command("borrar última palabra")
