@@ -82,6 +82,14 @@ def main():
     # except ImportError:
     #     print("Advertencia: pywin32 no instalado, no se puede verificar instancia única.")
 
+    # Identificador para Icono en Barra de Tareas
+    try:
+        import ctypes
+        myappid = 'whisper.dictado.porvoz.mx.v2' 
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+    except:
+        pass
+
     app = QApplication(sys.argv)
     
     # Prevenir cierre automático si la ventana se oculta

@@ -17,7 +17,7 @@ class ModernMainWindow(QMainWindow):
         
         # Setup UI standard
         self.setup_ui()
-        self.setup_menu()
+        # self.setup_menu() # Comentado a petición usuario
         self.setup_tray()
         self.apply_styles()
 
@@ -45,25 +45,9 @@ class ModernMainWindow(QMainWindow):
         self.console.setPlaceholderText("El texto reconocido aparecerá aquí...")
         layout.addWidget(self.console)
 
-    def setup_menu(self):
-        menu_bar = self.menuBar()
-        
-        # Menu Archivo
-        file_menu = menu_bar.addMenu("Archivo")
-        exit_action = QAction("Salir", self)
-        exit_action.triggered.connect(self.force_close)
-        file_menu.addAction(exit_action)
-        
-        # Menu Opciones (Placeholder para mostrar que existen)
-        opt_menu = menu_bar.addMenu("Opciones")
-        
-        model_action = QAction("Modelo: Small (Default)", self)
-        model_action.setEnabled(False)
-        opt_menu.addAction(model_action)
-        
-        mic_action = QAction("Micrófono: Default System", self)
-        mic_action.setEnabled(False)
-        opt_menu.addAction(mic_action)
+    # def setup_menu(self):
+    #     menu_bar = self.menuBar()
+    #     ...
 
     def setup_tray(self):
         from PySide6.QtWidgets import QStyle
