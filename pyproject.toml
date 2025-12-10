@@ -18,11 +18,12 @@ pyperclip = "^1.8.2"
 pyttsx3 = "^2.90"
 pywin32 = {version = "^306", markers = "sys_platform == 'win32'"}
 pyaudio = {version = "^0.2.14", optional = true}
-faster-whisper = "^1.2.1"
-pyinstaller = "^6.17.0"
-sounddevice = "^0.5.3"
-onnxruntime = "^1.23.2"
-webrtcvad = "^2.0.10"
+faster-whisper = ">=1.0.0"
+pyinstaller = ">=6.0.0"
+sounddevice = ">=0.4.0"
+onnxruntime = ">=1.16.0"
+pyqtdarktheme = ">=2.1.0"
+numpy = ">=1.24.0,<2.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
@@ -31,7 +32,7 @@ flake8 = "^6.1.0"
 mypy = "^1.7.0"
 
 [tool.poetry.scripts]
-dictado = "src.main_simple:main"
+dictado = "src.main:main"
 
 [build-system]
 requires = ["poetry-core"]
