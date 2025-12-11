@@ -144,10 +144,10 @@ class AudioRecorderThread(QThread):
     audio_ready = Signal(np.ndarray)
     error_occurred = Signal(str)
     
-    # Configuración de tiempos
-    MAX_CHUNK_DURATION = 3.0      # Procesar cada 3 segundos máximo
-    MIN_CHUNK_DURATION = 0.5      # Mínimo de audio para procesar
-    SILENCE_THRESHOLD = 0.4       # Segundos de silencio para enviar antes
+    # Configuración de tiempos (OPTIMIZADO para latencia baja)
+    MAX_CHUNK_DURATION = 2.5      # Procesar cada 2.5 segundos máximo
+    MIN_CHUNK_DURATION = 0.5      # Mínimo de audio para procesar  
+    SILENCE_THRESHOLD = 0.6       # Segundos de silencio para enviar (aumentado para evitar cortes)
     
     def __init__(self, sample_rate: int = 16000):
         super().__init__()
@@ -167,7 +167,7 @@ class AudioRecorderThread(QThread):
             return
         
         self.is_running = True
-        logger.info("Iniciando captura de audio (chunks cada 3s)")
+        logger.info("Iniciando captura de audio (chunks cada 2.5s)")
         
         try:
             with sd.InputStream(
