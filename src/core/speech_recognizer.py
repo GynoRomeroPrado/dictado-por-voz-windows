@@ -138,68 +138,104 @@ class SileroVAD:
 class AudioRecorderThread(QThread):
     """
     Hilo para captura continua de audio del micrófono.
-    Emite chunks de audio cuando detecta voz.
+    Envía chunks cada 3 segundos máximo para baja latencia.
     """
     
     audio_ready = Signal(np.ndarray)
     error_occurred = Signal(str)
     
-    def __init__(self, sample_rate: int = 16000, chunk_duration: float = 0.5):
+    # Configuración de tiempos
+    MAX_CHUNK_DURATION = 3.0      # Procesar cada 3 segundos máximo
+    MIN_CHUNK_DURATION = 0.5      # Mínimo de audio para procesar
+    SILENCE_THRESHOLD = 0.4       # Segundos de silencio para enviar antes
+    
+    def __init__(self, sample_rate: int = 16000):
         super().__init__()
         self.sample_rate = sample_rate
-        self.chunk_duration = chunk_duration
-        self.chunk_size = int(sample_rate * chunk_duration)
         self.is_running = False
         self.vad = SileroVAD()
         
-        # Buffer para acumular audio con voz
-        self.speech_buffer: list = []
-        self.silence_count = 0
-        self.max_silence_chunks = 3  # Chunks de silencio antes de enviar
+        # Calcular límites en muestras
+        self._max_samples = int(sample_rate * self.MAX_CHUNK_DURATION)
+        self._min_samples = int(sample_rate * self.MIN_CHUNK_DURATION)
+        self._silence_samples_threshold = int(sample_rate * self.SILENCE_THRESHOLD)
     
     def run(self):
-        """Ejecuta la captura de audio"""
+        """Ejecuta la captura de audio con envío periódico"""
         if sd is None:
             self.error_occurred.emit("sounddevice no disponible")
             return
         
         self.is_running = True
-        logger.info("Iniciando captura de audio")
+        logger.info("Iniciando captura de audio (chunks cada 3s)")
         
         try:
             with sd.InputStream(
                 samplerate=self.sample_rate,
                 channels=1,
                 dtype='float32',
-                blocksize=512  # Tamaño óptimo para VAD
+                blocksize=512
             ) as stream:
                 
                 audio_buffer = []
+                total_samples = 0
+                silence_samples = 0
+                last_emit_time = time.time()
                 
                 while self.is_running:
                     data, _ = stream.read(512)
                     audio_chunk = data.flatten()
+                    chunk_samples = len(audio_chunk)
                     
-                    # Detectar voz con VAD
-                    if self.vad.is_speech(audio_chunk):
+                    # Detectar voz
+                    is_speech = self.vad.is_speech(audio_chunk)
+                    
+                    if is_speech:
+                        # Hay voz: acumular
                         audio_buffer.append(audio_chunk)
-                        self.silence_count = 0
+                        total_samples += chunk_samples
+                        silence_samples = 0
                     else:
-                        self.silence_count += 1
+                        # Silencio
+                        silence_samples += chunk_samples
                         
-                        # Si hay audio acumulado y suficiente silencio, enviar
-                        if audio_buffer and self.silence_count >= self.max_silence_chunks:
-                            full_audio = np.concatenate(audio_buffer)
-                            if len(full_audio) > self.sample_rate * 0.3:  # Min 0.3s
-                                self.audio_ready.emit(full_audio)
-                            audio_buffer = []
-                            self.vad.reset_states()
+                        # Seguir acumulando silencio corto (para contexto)
+                        if audio_buffer and silence_samples < self._silence_samples_threshold:
+                            audio_buffer.append(audio_chunk)
+                            total_samples += chunk_samples
                     
-                    # Prevenir buffers muy largos (max 30s)
-                    if len(audio_buffer) > 60 * self.sample_rate // 512:
+                    # Calcular tiempo transcurrido
+                    current_time = time.time()
+                    time_elapsed = current_time - last_emit_time
+                    
+                    # Decidir si enviar
+                    should_send = False
+                    
+                    if audio_buffer and total_samples >= self._min_samples:
+                        # Enviar si:
+                        # 1. Detectamos silencio suficiente, O
+                        # 2. Han pasado 3 segundos, O
+                        # 3. Buffer muy largo (seguridad)
+                        
+                        silence_detected = silence_samples >= self._silence_samples_threshold
+                        time_limit_reached = time_elapsed >= self.MAX_CHUNK_DURATION
+                        buffer_overflow = total_samples >= self._max_samples * 2
+                        
+                        should_send = silence_detected or time_limit_reached or buffer_overflow
+                    
+                    if should_send:
+                        # Concatenar y enviar
                         full_audio = np.concatenate(audio_buffer)
+                        duration_secs = len(full_audio) / self.sample_rate
+                        
+                        logger.debug(f"Enviando chunk: {duration_secs:.1f}s de audio")
                         self.audio_ready.emit(full_audio)
+                        
+                        # Reset
                         audio_buffer = []
+                        total_samples = 0
+                        silence_samples = 0
+                        last_emit_time = current_time
                         self.vad.reset_states()
         
         except Exception as e:

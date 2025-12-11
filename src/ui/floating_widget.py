@@ -140,10 +140,42 @@ class FloatingMicButton(QWidget):
         painter.drawLine(cx - 5, cy + 12, cx + 5, cy + 12)
     
     def mousePressEvent(self, event):
+        """Inicia arrastre o click"""
         if event.button() == Qt.MouseButton.LeftButton:
-            logger.info("Botón flotante clickeado!")
-            self.clicked.emit()
+            self._drag_start_pos = event.globalPosition().toPoint()
+            self._widget_start_pos = self.pos()
             event.accept()
+    
+    def mouseMoveEvent(self, event):
+        """Arrastra el botón"""
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            if hasattr(self, '_drag_start_pos'):
+                delta = event.globalPosition().toPoint() - self._drag_start_pos
+                new_pos = self._widget_start_pos + delta
+                self.move(new_pos)
+                self.setCursor(Qt.CursorShape.ClosedHandCursor)
+            event.accept()
+    
+    def mouseReleaseEvent(self, event):
+        """Detecta si fue clic o arrastre"""
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.setCursor(Qt.CursorShape.PointingHandCursor)
+            
+            if hasattr(self, '_drag_start_pos'):
+                # Si se movió poco, es un clic
+                delta = event.globalPosition().toPoint() - self._drag_start_pos
+                if abs(delta.x()) < 5 and abs(delta.y()) < 5:
+                    logger.info("Botón flotante clickeado!")
+                    self.clicked.emit()
+                else:
+                    logger.debug(f"Botón movido a posición: {self.pos()}")
+                
+                # Limpiar
+                delattr(self, '_drag_start_pos')
+                delattr(self, '_widget_start_pos')
+            
+            event.accept()
+
 
 
 class TextOverlay(QWidget):

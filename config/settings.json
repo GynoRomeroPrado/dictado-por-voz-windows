@@ -3,7 +3,7 @@
   "language": "es-PE",
   "recognition": {
     "engine": "whisper_local",
-    "model": "medium",
+    "model": "large-v3-turbo",
     "confidence_threshold": 0.7,
     "energy_threshold": 600,
     "dynamic_energy": true,
