@@ -401,14 +401,14 @@ class SpeechRecognizer(QObject):
                 segments, info = self.model.transcribe(
                     audio,
                     language=lang_code,
-                    beam_size=3,              # Balance: mantiene puntuación, más rápido que 5
-                    best_of=1,                # Reducido para velocidad
+                    beam_size=3,
+                    best_of=1,
                     temperature=0.0,
                     vad_filter=True,
                     vad_parameters=dict(
-                        min_silence_duration_ms=300,
-                        speech_pad_ms=150,
-                        threshold=0.4
+                        min_silence_duration_ms=500,  # Aumentado: requiere más silencio
+                        speech_pad_ms=100,            # Reducido: menos padding
+                        threshold=0.6                 # AUMENTADO: filtra mejor ruido de fondo
                     ),
                     word_timestamps=False,
                     condition_on_previous_text=False
