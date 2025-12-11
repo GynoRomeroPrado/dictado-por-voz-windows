@@ -57,11 +57,11 @@ class VoskAudioThread(QThread):
             ) as stream:
                 
                 while self.is_running:
-                    # Leer chunk de audio
+                    # Leer chunk de audio (ya es bytes)
                     data, _ = stream.read(4000)
                     
                     # Procesar con Vosk (incremental)
-                    if self.recognizer.AcceptWaveform(data.tobytes()):
+                    if self.recognizer.AcceptWaveform(bytes(data)):
                         # Frase completa detectada
                         result = json.loads(self.recognizer.Result())
                         if result.get('text'):
