@@ -144,10 +144,10 @@ class AudioRecorderThread(QThread):
     audio_ready = Signal(np.ndarray)
     error_occurred = Signal(str)
     
-    # Configuración de tiempos (OPTIMIZADO para latencia baja)
-    MAX_CHUNK_DURATION = 2.5      # Procesar cada 2.5 segundos máximo
+    # Configuración de tiempos (OPTIMIZADO para latencia ULTRA baja)
+    MAX_CHUNK_DURATION = 2.0      # Procesar cada 2 segundos máximo (REDUCIDO)
     MIN_CHUNK_DURATION = 0.5      # Mínimo de audio para procesar  
-    SILENCE_THRESHOLD = 0.6       # Segundos de silencio para enviar (aumentado para evitar cortes)
+    SILENCE_THRESHOLD = 0.5       # Reducido para procesar más rápido
     
     def __init__(self, sample_rate: int = 16000):
         super().__init__()
