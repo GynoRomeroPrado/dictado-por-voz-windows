@@ -149,7 +149,7 @@ def main():
     from .utils.config import config
     from .core.hotkey_manager import HotkeyManager
     from .core.command_processor import CommandProcessor
-    from .core.vosk_recognizer import VoskRecognizer  # CAMBIO: Vosk en lugar de Whisper
+    from .core.hybrid_recognizer import HybridRecognizer  # SISTEMA DUAL: Vosk + Whisper
     from .ui.main_window import MainWindow
     from .ui.settings_dialog import SettingsDialog
     from .ui.system_tray import SystemTrayIcon
@@ -158,7 +158,7 @@ def main():
     # Crear componentes
     logger.info("Inicializando componentes...")
     
-    recognizer = VoskRecognizer()  # CAMBIO: Usando Vosk para baja latencia
+    recognizer = HybridRecognizer()  # Sistema dual para mejor UX
     processor = CommandProcessor()
     hotkeys = HotkeyManager()
     
@@ -185,7 +185,7 @@ def main():
     
     # Recognizer -> Processor -> Salida
     def on_text_recognized(text: str):
-        """Procesa texto reconocido"""
+        """Procesa texto de Vosk (preliminar, rápido)"""
         processed_text, is_action = processor.process_text(text)
         
         if is_action:
@@ -199,7 +199,14 @@ def main():
             floating_widgets.show_recognized_text(processed_text)  # Mostrar en overlay
             processor.insert_text(processed_text)
     
+    def on_text_corrected(text: str):
+        """Procesa texto de Whisper (corregido, preciso)"""
+        # TODO: Podríamos reemplazar el último texto insertado con la versión corregida
+        # Por ahora solo logueamos
+        logger.info(f"Whisper corrección: {text}")
+    
     recognizer.text_recognized.connect(on_text_recognized)
+    recognizer.text_corrected.connect(on_text_corrected)
     
     # ===== Callbacks de UI =====
     
