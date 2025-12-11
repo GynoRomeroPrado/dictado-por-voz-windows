@@ -401,7 +401,7 @@ class SpeechRecognizer(QObject):
                 segments, info = self.model.transcribe(
                     audio,
                     language=lang_code,
-                    beam_size=3,
+                    beam_size=4,              # Aumentado: mejor precisión que 3, más rápido que 5
                     best_of=1,
                     temperature=0.0,
                     vad_filter=True,
