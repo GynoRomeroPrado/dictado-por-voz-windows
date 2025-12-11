@@ -397,19 +397,13 @@ class SpeechRecognizer(QObject):
                 # Extraer código de idioma (ej: 'es' de 'es-PE')
                 lang_code = self.language.split('-')[0] if '-' in self.language else self.language
                 
-                # Prompt inicial para mejorar reconocimiento en español latinoamericano
-                initial_prompt = None
-                if lang_code == 'es':
-                    initial_prompt = "Transcripción en español latinoamericano."
-                
-                # Transcribir con Whisper - parámetros balanceados (precisión vs velocidad)
+                # Transcribir con Whisper (SIN initial_prompt para evitar alucinaciones)
                 segments, info = self.model.transcribe(
                     audio,
                     language=lang_code,
-                    beam_size=5,      # Reducido de 10 para mejor velocidad
-                    best_of=2,        # Reducido de 5 para mejor velocidad
-                    temperature=0.0,  # Determinístico
-                    initial_prompt=initial_prompt,
+                    beam_size=5,
+                    best_of=2,
+                    temperature=0.0,
                     vad_filter=True,
                     vad_parameters=dict(
                         min_silence_duration_ms=300,
@@ -417,19 +411,41 @@ class SpeechRecognizer(QObject):
                         threshold=0.4
                     ),
                     word_timestamps=False,
-                    condition_on_previous_text=False  # Reducir carga
+                    condition_on_previous_text=False
                 )
                 
                 # Concatenar segmentos
                 text_parts = []
                 for segment in segments:
-                    text_parts.append(segment.text.strip())
+                    text = segment.text.strip()
+                    if text:
+                        text_parts.append(text)
                 
                 full_text = ' '.join(text_parts).strip()
                 
-                if full_text and self.is_listening:
-                    logger.debug(f"Texto reconocido: {full_text}")
-                    self.text_recognized.emit(full_text)
+                # FILTRO: Ignorar textos basura comunes de Whisper
+                garbage_phrases = [
+                    "transcripción",
+                    "español latinoamericano",
+                    "subtítulos",
+                    "amara.org",
+                    "suscríbete",
+                    "gracias por ver",
+                    "thanks for watching",
+                    "subscribe",
+                    "comunidad de amara"
+                ]
+                
+                # Verificar si contiene frases basura
+                if full_text:
+                    text_lower = full_text.lower()
+                    is_garbage = any(phrase in text_lower for phrase in garbage_phrases)
+                    
+                    if not is_garbage and self.is_listening:
+                        logger.debug(f"Texto reconocido: {full_text}")
+                        self.text_recognized.emit(full_text)
+                    elif is_garbage:
+                        logger.debug(f"Texto ignorado (basura): {full_text}")
                     
             except Exception as e:
                 logger.error(f"Error en transcripción: {e}")
