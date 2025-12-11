@@ -397,11 +397,11 @@ class SpeechRecognizer(QObject):
                 # Extraer código de idioma (ej: 'es' de 'es-PE')
                 lang_code = self.language.split('-')[0] if '-' in self.language else self.language
                 
-                # Transcribir con Whisper (BALANCE precisión/velocidad + puntuación)
+                # Transcribir con Whisper (ALTA precisión)
                 segments, info = self.model.transcribe(
                     audio,
                     language=lang_code,
-                    beam_size=6,              # Alta precisión (solicitud del usuario)
+                    beam_size=8,              # Máxima precisión (solicitud del usuario)
                     best_of=1,
                     temperature=0.0,
                     vad_filter=True,
