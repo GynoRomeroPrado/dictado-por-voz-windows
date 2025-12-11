@@ -250,7 +250,7 @@ def main():
         logger.info("Cerrando aplicación...")
         recognizer.stop_listening()
         hotkeys.unregister_all()
-        floating_widgets.close()  # CRITICAL: Cerrar botón flotante
+        floating_widgets.hide()  # CRITICAL: Ocultar/cerrar botón flotante
         tray_icon.hide()
         app.quit()
     
