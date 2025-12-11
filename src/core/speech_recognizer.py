@@ -406,9 +406,9 @@ class SpeechRecognizer(QObject):
                     temperature=0.0,
                     vad_filter=True,
                     vad_parameters=dict(
-                        min_silence_duration_ms=400,  # REDUCIDO: captura más voz
-                        speech_pad_ms=150,            # AUMENTADO: padding para no cortar
-                        threshold=0.5                 # REDUCIDO: menos agresivo, captura todas las palabras
+                        min_silence_duration_ms=300,  # REDUCIDO: captura rápido
+                        speech_pad_ms=200,            # AUMENTADO: mucho padding para no cortar
+                        threshold=0.35                # MUY PERMISIVO: captura todas las palabras
                     ),
                     word_timestamps=False,
                     condition_on_previous_text=False
