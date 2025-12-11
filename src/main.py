@@ -129,6 +129,13 @@ def main():
     # Crear aplicación Qt
     from PySide6.QtWidgets import QApplication
     from PySide6.QtCore import Qt
+    from PySide6.QtGui import QIcon
+    
+    # CRITICAL: Configurar AppUserModelID ANTES de crear QApplication
+    # Esto permite icono y notificaciones personalizadas en Windows
+    if sys.platform == 'win32':
+        from .utils.windows_utils import set_app_user_model_id, get_app_icon_path
+        set_app_user_model_id("GynoRomeroPrado.DictadoPorVoz.1.0")
     
     # Habilitar modo oscuro nativo en Windows
     if sys.platform == 'win32':
@@ -138,6 +145,15 @@ def main():
     app.setApplicationName("Dictado por Voz")
     app.setApplicationVersion("1.0.0")
     app.setOrganizationName("GynoRomeroPrado")
+    
+    # Configurar icono personalizado para la aplicación
+    if sys.platform == 'win32':
+        icon_path = get_app_icon_path()
+        if icon_path:
+            app.setWindowIcon(QIcon(icon_path))
+            logger.info(f"Icono personalizado cargado: {icon_path}")
+        else:
+            logger.warning("No se encontró icono personalizado, usando predeterminado")
     
     # Configurar tema
     setup_theme(app)
