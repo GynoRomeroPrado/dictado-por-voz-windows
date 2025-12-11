@@ -246,10 +246,11 @@ def main():
         logger.info("Configuración actualizada")
     
     def exit_app():
-        """Cierra la aplicación"""
+        """Cierra la aplicación completamente"""
         logger.info("Cerrando aplicación...")
         recognizer.stop_listening()
         hotkeys.unregister_all()
+        floating_widgets.close()  # CRITICAL: Cerrar botón flotante
         tray_icon.hide()
         app.quit()
     
