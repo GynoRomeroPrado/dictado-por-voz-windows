@@ -149,7 +149,7 @@ def main():
     from .utils.config import config
     from .core.hotkey_manager import HotkeyManager
     from .core.command_processor import CommandProcessor
-    from .core.speech_recognizer import SpeechRecognizer
+    from .core.vosk_recognizer import VoskRecognizer  # CAMBIO: Vosk en lugar de Whisper
     from .ui.main_window import MainWindow
     from .ui.settings_dialog import SettingsDialog
     from .ui.system_tray import SystemTrayIcon
@@ -158,7 +158,7 @@ def main():
     # Crear componentes
     logger.info("Inicializando componentes...")
     
-    recognizer = SpeechRecognizer()
+    recognizer = VoskRecognizer()  # CAMBIO: Usando Vosk para baja latencia
     processor = CommandProcessor()
     hotkeys = HotkeyManager()
     
