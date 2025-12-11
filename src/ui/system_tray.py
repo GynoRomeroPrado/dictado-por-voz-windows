@@ -32,8 +32,22 @@ class SystemTrayIcon(QSystemTrayIcon):
         
         self._is_listening = False
         
-        # Crear iconos
-        self._create_icons()
+        # Intentar cargar icono personalizado
+        from pathlib import Path
+        icon_path = Path(__file__).parent.parent / "assets" / "app_icon.ico"
+        
+        if icon_path.exists():
+            # Usar icono personalizado
+            from PySide6.QtGui import QIcon
+            self._idle_icon = QIcon(str(icon_path))
+            self._listening_icon = QIcon(str(icon_path))  # Mismo icono por ahora
+            self._error_icon = self._create_circle_icon(QColor(244, 67, 54))
+            logger.info(f"Icono personalizado cargado para tray: {icon_path}")
+        else:
+            # Fallback: crear iconos generados
+            self._create_icons()
+            logger.warning("Icono personalizado no encontrado, usando generado")
+        
         self.setIcon(self._idle_icon)
         
         # Crear menú contextual
