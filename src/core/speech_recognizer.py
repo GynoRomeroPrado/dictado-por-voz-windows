@@ -394,14 +394,23 @@ class SpeechRecognizer(QObject):
         # Ejecutar transcripción en hilo separado para no bloquear UI
         def transcribe_async():
             try:
+                # === CANCELACIÓN DE RUIDO ===
+                # Aplicar RNNoise para eliminar ruido de fondo (ventiladores, etc.)
+                from .audio_preprocessor import denoise_audio, get_preprocessor
+                if get_preprocessor().is_available():
+                    audio_clean = denoise_audio(audio)
+                    logger.debug("Audio preprocesado con RNNoise")
+                else:
+                    audio_clean = audio
+                
                 # Extraer código de idioma (ej: 'es' de 'es-PE')
                 lang_code = self.language.split('-')[0] if '-' in self.language else self.language
                 
                 # Transcribir con Whisper (ALTA precisión)
                 segments, info = self.model.transcribe(
-                    audio,
+                    audio_clean,  # Usar audio limpio
                     language=lang_code,
-                    beam_size=8,              # Máxima precisión (solicitud del usuario)
+                    beam_size=8,
                     best_of=1,
                     temperature=0.0,
                     vad_filter=True,
