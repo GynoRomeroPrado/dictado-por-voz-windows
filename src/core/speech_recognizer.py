@@ -144,10 +144,10 @@ class AudioRecorderThread(QThread):
     audio_ready = Signal(np.ndarray)
     error_occurred = Signal(str)
     
-    # Configuración de tiempos (OPTIMIZADO para latencia ULTRA baja)
-    MAX_CHUNK_DURATION = 2.0      # Procesar cada 2 segundos máximo (REDUCIDO)
+    # Configuración de tiempos (OPTIMIZADO para habla fluida)
+    MAX_CHUNK_DURATION = 4.0      # Aumentado: captura frases largas al hablar rápido
     MIN_CHUNK_DURATION = 0.5      # Mínimo de audio para procesar  
-    SILENCE_THRESHOLD = 0.5       # Reducido para procesar más rápido
+    SILENCE_THRESHOLD = 0.8       # Aumentado: espera más silencio antes de procesar
     
     def __init__(self, sample_rate: int = 16000):
         super().__init__()
@@ -415,8 +415,8 @@ class SpeechRecognizer(QObject):
                     temperature=0.0,
                     vad_filter=True,
                     vad_parameters=dict(
-                        min_silence_duration_ms=300,
-                        speech_pad_ms=200,
+                        min_silence_duration_ms=400,  # Aumentado: más tolerante a pausas breves
+                        speech_pad_ms=300,            # Aumentado: no corta inicio/fin de palabras
                         threshold=0.35
                     ),
                     word_timestamps=False,
