@@ -33,7 +33,7 @@ class AudioPreprocessor:
         Inicializa el preprocesador.
         
         Args:
-            sample_rate: Frecuencia de muestreo (RNNoise espera 48kHz internamente)
+            sample_rate: Frecuencia de muestreo del audio
         """
         self.sample_rate = sample_rate
         self.denoiser = None
@@ -41,10 +41,10 @@ class AudioPreprocessor:
         
         if RNNOISE_AVAILABLE:
             try:
-                # RNNoise trabaja a 48kHz internamente
-                self.denoiser = pyrnnoise.RNNoise()
+                # Inicializar RNNoise con sample_rate correcto
+                self.denoiser = pyrnnoise.RNNoise(sample_rate=sample_rate)
                 self.enabled = True
-                logger.info("Cancelación de ruido RNNoise inicializada")
+                logger.info(f"Cancelación de ruido RNNoise inicializada ({sample_rate}Hz)")
             except Exception as e:
                 logger.error(f"Error inicializando RNNoise: {e}")
                 self.enabled = False
@@ -63,40 +63,14 @@ class AudioPreprocessor:
             return audio
         
         try:
-            # RNNoise espera audio a 48kHz, 16-bit PCM
-            # Nuestro audio está a 16kHz, necesitamos resamplear
+            # pyrnnoise espera float32 y retorna float32
+            # Asegurar que el audio sea 1D y float32
+            audio_1d = audio.flatten().astype(np.float32)
             
-            # Convertir de float32 [-1,1] a int16
-            audio_int16 = (audio * 32767).astype(np.int16)
+            # Aplicar cancelación de ruido
+            denoised = self.denoiser.denoise_wav(audio_1d)
             
-            # RNNoise procesa en frames de 480 muestras (10ms a 48kHz)
-            # Como estamos a 16kHz, procesamos en frames de 160 muestras
-            frame_size = 160  # 10ms a 16kHz
-            
-            # Padding para que sea múltiplo del frame_size
-            original_length = len(audio_int16)
-            padded_length = ((original_length + frame_size - 1) // frame_size) * frame_size
-            if padded_length > original_length:
-                audio_int16 = np.pad(audio_int16, (0, padded_length - original_length))
-            
-            # Procesar cada frame
-            output_frames = []
-            for i in range(0, len(audio_int16), frame_size):
-                frame = audio_int16[i:i+frame_size].tobytes()
-                # RNNoise procesa y retorna el frame filtrado
-                filtered = self.denoiser.process_frame(frame)
-                output_frames.append(np.frombuffer(filtered, dtype=np.int16))
-            
-            # Concatenar frames
-            output = np.concatenate(output_frames)
-            
-            # Recortar al tamaño original
-            output = output[:original_length]
-            
-            # Convertir de int16 a float32 [-1, 1]
-            output_float = output.astype(np.float32) / 32767.0
-            
-            return output_float
+            return denoised
             
         except Exception as e:
             logger.warning(f"Error en cancelación de ruido: {e}, usando audio original")
